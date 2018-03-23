@@ -16,11 +16,17 @@ public class MainActivity extends AppCompatActivity {
         // link: http://developer.android.com/guide/components/fragments.html
         // After app. restart(configuration changes) you need to find the instance of fragment by the Tag name that you assigned when the new fragment was added.
 
-        ItemFragment itemFragment = (ItemFragment) getFragmentManager().findFragmentByTag("retainFragment");
-        if (itemFragment == null) {
-            itemFragment = ItemFragment.newInstance(this);
-            getFragmentManager().beginTransaction().add(itemFragment, "retainFragment").commit();
-        }
-        listView.setAdapter(itemFragment.getArrayAdapter());
+        /*FIXME Uncomment next 4 lines */
+        //ItemFragment itemFragment = (ItemFragment) getFragmentManager().findFragmentByTag("retainFragment");
+        //if (itemFragment == null) {
+        //itemFragment = ItemFragment.newInstance(this);
+        //getFragmentManager().beginTransaction().add(itemFragment, "retainFragment").commit();
+        //}
+
+        /**
+         * Set adapter for listView to ArrayAdapter from intemFragment
+         */
+        /*FIXME Uncomment next 1 lines */
+        //listView.setAdapter(itemFragment.getArrayAdapter());
     }
 }

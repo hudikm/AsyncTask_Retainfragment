@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class ItemFragment extends Fragment {
 
 
-    //Database simulation -> data model
-    private String[] savedData = {"item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10", "item 11", "item 12", "item 13", "item 14", "item 15", "item 16", "item 17", "item 18", "item 19", "item 20", "item 21", "item 22"};
+    //Database simulation -> data localData
+    private String[] remoteData = {"item 1", "item 2", "item 3", "item 4", "item 5", "item 6", "item 7", "item 8", "item 9", "item 10", "item 11", "item 12", "item 13", "item 14", "item 15", "item 16", "item 17", "item 18", "item 19", "item 20", "item 21", "item 22"};
     private AddStringAsyncTask addStringAsyncTask;
 
-    public ArrayList<String> getModel() {
-        return model;
+    public ArrayList<String> getLocalData() {
+        return localData;
     }
 
-    private ArrayList<String> model;
+    private ArrayList<String> localData;
 
     public ArrayAdapter<String> getArrayAdapter() {
         return myArrayAdapter;
@@ -44,7 +44,8 @@ public class ItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         //TODO Use this fragment as RetainFragment http://developer.android.com/guide/topics/resources/runtime-changes.html
-        setRetainInstance(true);
+        /*FIXME Uncomment next lines*/
+        // setRetainInstance(true);
     }
 
     /**
@@ -59,12 +60,14 @@ public class ItemFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (model == null) {
-            model = new ArrayList<String>();
-            myArrayAdapter.addAll(model);
-            //TODO run AddStringAsyncTask as AsyncTask.execute
-            addStringAsyncTask = new AddStringAsyncTask();
-            addStringAsyncTask.execute();
+        if (localData == null) {
+            localData = new ArrayList<String>();
+            myArrayAdapter.addAll(localData);
+
+            //TODO create AddStringAsyncTask and start AsyncTask with call to "execute" method
+            /*FIXME Uncomment next 2 lines */
+//            addStringAsyncTask = new AddStringAsyncTask();
+//            addStringAsyncTask.execute();
         }
 
     }
@@ -74,7 +77,7 @@ public class ItemFragment extends Fragment {
         super.onDetach();
     }
 
-    //TODO use AsyncTask for filling myArrayAdapter with data from savedData
+    //TODO use AsyncTask for filling myArrayAdapter with data from remoteData
     // Link: http://developer.android.com/reference/android/os/AsyncTask.html
     // Hint:
     // Load data in 'for' cycle. Every cycle iteration slowdown with use of 'SystemClock.sleep(500)' wich will emulate slow loading
@@ -84,7 +87,9 @@ public class ItemFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            for (String s : savedData) {
+
+            //Simulate slow download from database
+            for (String s : remoteData) {
                 publishProgress(s);
                 SystemClock.sleep(500);
             }
